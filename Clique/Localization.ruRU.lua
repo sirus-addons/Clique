@@ -1,6 +1,6 @@
 --[[---------------------------------------------------------------------------------
     Localisation for Russian
-    Перевод на русский от Сини
+    Перевод на русский от Сини и fxpw
 ----------------------------------------------------------------------------------]]
 
 local L = Clique.Locals
@@ -109,4 +109,36 @@ if GetLocale() == "ruRU" then
 	L.BS_CLICK_ARG1_LABEL = "Название кнопки:"
 
 	L.BS_MENU_HELP = "Показать всплывающее меню цели."
+
+
+	----------------------
+	L.YOUAREINCOMB = "В данный момент вы в бою, вы не можете изменять кнопки в бою"
+	L.PRIFILE = "Профиль:"
+	L.ENTERNAMETODELETE = "Введите имя профиля для удаления"
+	L.SLICKS_SET = "Группа :"
+	L.SELECT_A_CLICK_SET = "Выберите группу для изменения"
+	L.ENTER_NEW_PROF_NAME = "Введите имя профиля для создания"
+	L.CUSTOM = "Создать"
+	L.FRAMES = "Фреймы"
+	L.PROFILES = "Профили"
+	L.OPTIONS = "Опции"
+	L.DELETE = "Удалить"
+	L.EDIT = "Измен"
+	L.SET = "Установ"
+	L.NEW  = "Новый"
+	L.CANCEL = "Назад"
+	L.SAVE = "Сохр"
+	L.SET_BINDING = "Выбрать кнопку бинда"
+	L.CLIQUE_CONFIG = "Настройки Clique"
+	L.BUTTON = "Кнопка "
+	L.LEFTBUTT = "Левая КМ"
+	L.RIGHTBUTT = "Правая КМ"
+	L.MIDDLEBUTT = "Средняя КМ"
+	L.BUTTON5 = "Кнопка 5"
+	L.BUTTON4 = "Кнопка 4"
+	L.PROFILE_NAME = "Имя профиля"
+	L.DOWNCLICK_LABEL = "Исп. когда кнопка нажата, а не отжатии"
+    L.SPECSWITCH_LABEL = "Менять профиль при смене специализации"
+	L["Spec: %d"] = "Спек: %d"
+	L["Clique Options"] = "Опции"
 end

@@ -1,16 +1,18 @@
+local L = Clique.Locals
+
 local buttonMap = setmetatable({
-    [1] = "LeftButton",
-    [2] = "RightButton",
-    [3] = "MiddleButton",
+    [1] = L.LEFTBUTT,
+    [2] = L.RIGHTBUTT,
+    [3] = L.MIDDLEBUTT,
 }, {
     __index = function(t, k)
-        return "Button" .. k
+        return L.BUTTON .. k
     end
 })
 
 function Clique:GetModifierText()
     local modifier = ""
-    
+
 	if IsShiftKeyDown() then
 		modifier = "Shift-"..modifier
 	end
@@ -20,7 +22,7 @@ function Clique:GetModifierText()
 	if IsAltKeyDown() then
 		modifier = "Alt-"..modifier
 	end
-    
+
     return modifier
 end
 
@@ -40,7 +42,7 @@ end
 
 function Clique:CheckBinding(key)
     for k,v in pairs(self.editSet) do
-        if k == key then 
+        if k == key then
             return v
         end
     end
