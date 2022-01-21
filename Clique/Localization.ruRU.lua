@@ -138,7 +138,7 @@ if GetLocale() == "ruRU" then
 	L.BUTTON4 = "Кнопка 4"
 	L.PROFILE_NAME = "Имя профиля"
 	L.DOWNCLICK_LABEL = "Исп. когда кнопка нажата, а не отжатии"
-    L.SPECSWITCH_LABEL = "Менять профиль при смене специализации"
+	L.SPECSWITCH_LABEL = "Менять профиль при смене специализации"
 	L["Spec: %d"] = "Спек: %d"
 	L["Clique Options"] = "Опции"
 end
