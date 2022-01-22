@@ -716,7 +716,7 @@ function Clique:PLAYER_TALENT_UPDATE()
 
 	local talentGroup = C_Talent.GetActiveTalentGroup()
     if self.db.char.switchSpec and self.talentGroup ~= talentGroup then
-        self:Print("Detected a talent spec change, changing profile")
+        self:Print(L.TALENTSWITCH)
 		if not self.db.char["profile_"..talentGroup] then
 			self.db.char["profile_"..talentGroup] = self.db.keys.profile
 		end

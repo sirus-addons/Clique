@@ -83,7 +83,7 @@ function Clique:OptionsOnLoad()
     end)
 	CliquePulloutTab:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
-		GameTooltip:SetText("Clique configuration")
+		GameTooltip:SetText(L.CLIQUE_CONFIG)
 		GameTooltip:Show()
 	end)
    
@@ -464,7 +464,7 @@ function Clique:CreateOptionsFrame()
 		entry.name = entry:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 		entry.name:SetPoint("LEFT", 25, 0)
 		entry.name:SetJustifyH("LEFT")
-		entry.name:SetText("Profile Name")
+		entry.name:SetText(L.PROFILE_NAME)
 		frames[i] = entry
 	end
 
@@ -508,7 +508,7 @@ function Clique:CreateOptionsFrame()
 
 	CliqueDropDownButton:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
-		GameTooltip:SetText("Select a click-set to edit")
+		GameTooltip:SetText(L.SELECT_A_CLICK_SET)
 		GameTooltip:Show()
 	end)
 	CliqueDropDownButton:SetScript("OnLeave", function(self)
@@ -516,7 +516,7 @@ function Clique:CreateOptionsFrame()
 	end)
 
 	local font = CliqueDropDown:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	font:SetText("Click Set:")
+	font:SetText(L.SLICKS_SET)
 	font:SetPoint("RIGHT", CliqueDropDown, "LEFT", 5, 3)
 	-- Button Creations
     local buttonFunc = function(self) Clique:ButtonOnClick(self) end
@@ -530,42 +530,42 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueButtonCustom", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Custom")
+    button:SetText(L.CUSTOM)
     button:SetPoint("BOTTOMLEFT", CliqueFrame, "BOTTOMLEFT", 10, 5)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonFrames", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Frames")
+    button:SetText(L.FRAMES)
     button:SetPoint("LEFT", CliqueButtonCustom, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonProfiles", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Profiles")
+    button:SetText(L.PROFILES)
     button:SetPoint("LEFT", CliqueButtonFrames, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonOptions", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Options")
+    button:SetText(L.OPTIONS)
     button:SetPoint("LEFT", CliqueButtonProfiles, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonDelete", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Delete")
+    button:SetText(L.DELETE)
     button:SetPoint("LEFT", CliqueButtonOptions, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonEdit", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Edit")
+    button:SetText(L.EDIT)
     button:SetPoint("LEFT", CliqueButtonDelete, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
@@ -580,21 +580,21 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueButtonDeleteProfile", CliqueTextListFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Delete")
+    button:SetText(L.DELETE)
     button:SetPoint("BOTTOMLEFT", CliqueTextListFrame, "BOTTOMLEFT", 30, 5)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonSetProfile", CliqueTextListFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Set")
+    button:SetText(L.SET)
     button:SetPoint("LEFT", CliqueButtonDeleteProfile, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonNewProfile", CliqueTextListFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("New")
+    button:SetText(L.NEW)
     button:SetPoint("LEFT", CliqueButtonSetProfile, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
@@ -717,7 +717,7 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueCustomButtonBinding", CliqueCustomFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(30)
     button:SetWidth(175)
-    button:SetText("Set Click Binding")
+    button:SetText(L.SET_BINDING)
     button:SetPoint("TOP", CliqueCustomHelpText, "BOTTOM", 40, -10)
     button:SetScript("OnClick", function(self) Clique:CustomBinding_OnClick(self) end )
 	button:RegisterForClicks("AnyUp")
@@ -864,14 +864,14 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueCustomButtonCancel", CliqueCustomFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(70)
-    button:SetText("Cancel")
+    button:SetText(L.CANCEL)
     button:SetPoint("BOTTOM", 65, 4)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueCustomButtonSave", CliqueCustomFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(70)
-    button:SetText("Save")
+    button:SetText(L.SAVE)
     button:SetPoint("LEFT", CliqueCustomButtonCancel, "RIGHT", 6, 0)
     button:SetScript("OnClick", buttonFunc)
 
@@ -1263,13 +1263,14 @@ function Clique:ButtonOnClick(button)
 		CliqueCustomButtonBinding.modifier = entry.modifier
 		CliqueCustomButtonBinding.button = self:GetButtonNumber(entry.button)
 		CliqueCustomButtonBinding:SetText(string.format("%s%s", entry.modifier, self:GetButtonText(entry.button)))	
+		-- print(string.format("%s%s", entry.modifier, self:GetButtonText(entry.button)))
 
 		self.editEntry = entry
 
     elseif button == CliqueCustomButtonCancel then
 		CliqueCustomFrame:Hide()
 		CliqueCustomButtonIcon.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-		CliqueCustomButtonBinding:SetText("Set Click Binding")
+		CliqueCustomButtonBinding:SetText(L.SET_BINDING)
 		self.customEntry = {}
 		self.editEntry = nil
 		self:CustomRadio()
@@ -1407,6 +1408,7 @@ function Clique:CustomBinding_OnClick(frame)
 	-- This handles the binding click
 	local mod = self:GetModifierText()
 	local button = arg1
+	-- print(arg1)
 
 	if self.editSet == self.clicksets[L.CLICKSET_HARMFUL] then
 		button = string.format("%s%d", "harmbutton", self:GetButtonNumber(button))
@@ -1418,7 +1420,19 @@ function Clique:CustomBinding_OnClick(frame)
 
 	self.customEntry.modifier = mod
 	self.customEntry.button = button
-	frame:SetText(string.format("%s%s", mod, arg1))	
+
+	if arg1 == "LeftButton" then
+		bttn2 = L.LEFTBUTT
+	elseif arg1 == "RightButton" then
+		bttn2 = L.RIGHTBUTT
+	elseif arg1 == "MiddleButton" then
+		bttn2 = L.MIDDLEBUTT
+	elseif arg1 == "Button5" then
+		bttn2 = L.BUTTON5
+	elseif arg1 == "Button4" then
+		bttn2 = L.BUTTON4
+	end
+	frame:SetText(string.format("%s%s", mod, bttn2 or ""))	
 end
 
 local buttonSetup = {
@@ -1495,7 +1509,7 @@ function Clique:CustomRadio(button)
 		CliqueCustomArg3:Hide()
 		CliqueCustomArg4:Hide()
 		CliqueCustomArg5:Hide()
-		CliqueCustomButtonBinding:SetText("Set Click Binding")
+		CliqueCustomButtonBinding:SetText(L.SET_BINDING)
 		return
 	end
 
@@ -1606,7 +1620,7 @@ StaticPopupDialogs["CLIQUE_BINDING_PROBLEM"] = {
 }
 
 StaticPopupDialogs["CLIQUE_COMBAT_LOCKDOWN"] = {
-	text = "You are currently in combat.  You cannot make changes to your click casting while in combat..",
+	text = L.YOUAREINCOMB,
 	button1 = TEXT(OKAY),
 	OnAccept = function()
 	end,
@@ -1615,7 +1629,7 @@ StaticPopupDialogs["CLIQUE_COMBAT_LOCKDOWN"] = {
 }
 
 StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
-	text = TEXT("Enter the name of a new profile you'd like to create"),
+	text = TEXT(L.ENTER_NEW_PROF_NAME),
 	button1 = TEXT(OKAY),
 	button2 = TEXT(CANCEL),
 	OnAccept = function(self)
@@ -1656,7 +1670,7 @@ StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
 }
 
 StaticPopupDialogs["CLIQUE_DELETE_PROFILE"] = {
-	text = TEXT("Enter the name of a profile you'd like to delete"),
+	text = TEXT(L.ENTERNAMETODELETE),
 	button1 = TEXT(OKAY),
 	button2 = TEXT(CANCEL),
 	OnAccept = function(self)
@@ -1715,7 +1729,7 @@ function Clique:TextListScrollUpdate()
 	if self.textlist == "PROFILES" then
 		for k,v in pairs(self.db.profiles) do table.insert(work, k) end
 		table.sort(work)
-		CliqueTextListFrame.title:SetText("Profile: " .. self.db.keys.profile)
+		CliqueTextListFrame.title:SetText(L.PRIFILE .. self.db.keys.profile)
 
 	elseif self.textlist == "FRAMES" then
 		for k,v in pairs(self.ccframes) do 
