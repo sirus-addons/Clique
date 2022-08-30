@@ -1611,7 +1611,7 @@ StaticPopupDialogs["CLIQUE_CANT_SAVE"] = {
 }
 
 StaticPopupDialogs["CLIQUE_BINDING_PROBLEM"] = {
-	text = "That combination is already bound.  Delete the old one before trying to re-bind.",
+	text = L.THATCOMBEXISTS,
 	button1 = TEXT(OKAY),
 	OnAccept = function()
 	end,
