@@ -109,4 +109,6 @@ if GetLocale() == "ruRU" then
 	L.BS_CLICK_ARG1_LABEL = "Название кнопки:"
 
 	L.BS_MENU_HELP = "Показать всплывающее меню цели."
+	
+	L.COMPACT_RAID_FRAMES_LABEL = "Компактные рамки группы"
 end

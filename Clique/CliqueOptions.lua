@@ -1851,8 +1851,11 @@ function Clique:CreateOptionsWidgets(parent)
     local downClick = makeCheckbox(parent, "CliqueOptionsAnyDown", L.DOWNCLICK_LABEL, 300)
     downClick:SetPoint("TOPLEFT", 5, -25)
 
+    local compactraid = makeCheckbox(parent, "CliqueOptionsCompactRaid", L.COMPACT_RAID_FRAMES_LABEL, 300)
+    compactraid:SetPoint("TOPLEFT", 5, -45)
+
     local switchSpec = makeCheckbox(parent, "CliqueOptionsSpecSwitch", L.SPECSWITCH_LABEL, 300)
-    switchSpec:SetPoint("TOPLEFT", 5, -45)
+    switchSpec:SetPoint("TOPLEFT", 5, -65)
 
 	local dropdowns = {}
 	for i = 1, 10 do
@@ -1912,8 +1915,10 @@ function Clique:CreateOptionsWidgets(parent)
         -- Hide the dropdowns if the spec switch option isn't selected
         local switchSpec = Clique.db.char.switchSpec
         local downClick = Clique.db.char.downClick
+        local compactraid = Clique.db.char.compactraid
         CliqueOptionsSpecSwitch:SetChecked(switchSpec)
         CliqueOptionsAnyDown:SetChecked(downClick)
+        CliqueOptionsCompactRaid:SetChecked(compactraid)
 
         if switchSpec then
 			local numTalentGroups = Clique.numTalentGroups or 0
@@ -1957,5 +1962,14 @@ function Clique:CreateOptionsWidgets(parent)
         end
         refreshOptions(parent)
         Clique:SetClickType()
+    end)
+    compactraid:SetScript("OnClick", function(self)
+        if Clique.db.char.compactraid then
+            Clique.db.char.compactraid = false
+        else
+            Clique.db.char.compactraid = true
+        end
+        refreshOptions(parent)
+        Clique:Toggle_BlizzCompactUnitFrames(Clique.db.char.compactraid)
     end)
 end
