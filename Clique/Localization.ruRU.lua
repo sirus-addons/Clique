@@ -143,6 +143,5 @@ if GetLocale() == "ruRU" then
     L.SPECSWITCH_LABEL = "Менять профиль при смене специализации"
 	L["Spec: %d"] = "Спек: %d"
 	L["Clique Options"] = "Опции"
-	
 
 end
