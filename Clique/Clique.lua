@@ -29,6 +29,7 @@ function Clique:Enable()
 			tooltips = false,
 		},
         char = {
+			compactraid = true,
             switchSpec = false,
             downClick = false,
         },
@@ -127,6 +128,50 @@ function Clique:Enable()
     end
 end
 
+function Clique:Toggle_BlizzCompactUnitFrames(toggle)
+	do
+		local index = 1
+		local frame = _G["CompactRaidFrame"..index]
+		while frame do
+			for i = 1, 3 do
+				local buffFrame = frame.BuffFrame
+				if buffFrame then
+					rawset(self.ccframes, buffFrame, true)
+				end
+			end
+
+			rawset(self.ccframes, frame, true)
+
+			index = index + 1
+			frame = _G["CompactRaidFrame"..index]
+		end
+	end
+end
+
+function Clique:Enable_BlizzCompactUnitFrames()
+    if not self.db.char.compactraid then
+        return
+    end
+
+	self:Toggle_BlizzCompactUnitFrames(true)
+
+	hooksecurefunc("CompactUnitFrame_SetUpFrame", function(frame, ...)
+		if self.db.char.compactraid then
+			for i = 1, 3 do
+				local buffFrame = frame.BuffFrame
+				if buffFrame then
+					rawset(self.ccframes, buffFrame, true)
+				end
+			end
+
+			rawset(self.ccframes, frame, true)
+		end
+    end)
+
+	self.compactraidAdded = true
+end
+
+
 function Clique:EnableFrames()
     local tbl = {
 		PlayerFrame,
@@ -149,20 +194,13 @@ function Clique:EnableFrames()
         Boss4TargetFrame,
 
     }
-	if CompactRaidFrameContainer then
-		for i = 1,60 do -- for pets
-			local frame = _G["CompactRaidFrame"..i]
-			if frame then
-				table.insert(tbl,frame)
-			end
-		end
-	end
 
     for i,frame in pairs(tbl) do
 		if frame then
 			rawset(self.ccframes, frame, true)
 		end
     end
+	self:Enable_BlizzCompactUnitFrames()
 end
 
 function Clique:SpellBookButtonPressed(frame, button)

@@ -119,5 +119,6 @@ if GetLocale() then
     L["Spec: %d"] = "Spec: %d"
     L.DOWNCLICK_LABEL = "Trigger clicks on the 'down' portion of the click"
     L.SPECSWITCH_LABEL = "Change profile when switching talent specs"
+	L.COMPACT_RAID_FRAMES_LABEL = "Compact raid frames"
 end
 
