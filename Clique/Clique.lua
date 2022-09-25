@@ -128,22 +128,33 @@ function Clique:Enable()
     end
 end
 
+local function enableCompactUnitFrames(self, frame)
+	local name = frame:GetName()
+	for i = 1, 3 do
+		local buff = _G[name .. "Buff" .. i]
+		local debuff = _G[name .. "Debuff" .. i]
+		local dispel = _G[name .. "DispelDebuff" .. i]
+
+		if buff then rawset(self.ccframes, buff, true) end
+		if debuff then rawset(self.ccframes, debuff, true) end
+		if dispel then rawset(self.ccframes, dispel, true) end
+	end
+
+	local statusIcon = _G[name .. "CenterStatusIcon"]
+	if statusIcon then rawset(self.ccframes, statusIcon, true) end
+
+	rawset(self.ccframes, frame, true)
+end
+
 function Clique:Toggle_BlizzCompactUnitFrames(toggle)
 	do
 		local index = 1
-		local frame = _G["CompactRaidFrame"..index]
+		local frame = _G["CompactRaidFrame" .. index]
 		while frame do
-			for i = 1, 3 do
-				local buffFrame = frame.BuffFrame
-				if buffFrame then
-					rawset(self.ccframes, buffFrame, true)
-				end
-			end
-
-			rawset(self.ccframes, frame, true)
+			enableCompactUnitFrames(self, frame)
 
 			index = index + 1
-			frame = _G["CompactRaidFrame"..index]
+			frame = _G["CompactRaidFrame" .. index]
 		end
 	end
 end
@@ -157,14 +168,7 @@ function Clique:Enable_BlizzCompactUnitFrames()
 
 	hooksecurefunc("CompactUnitFrame_SetUpFrame", function(frame, ...)
 		if self.db.char.compactraid then
-			for i = 1, 3 do
-				local buffFrame = frame.BuffFrame
-				if buffFrame then
-					rawset(self.ccframes, buffFrame, true)
-				end
-			end
-
-			rawset(self.ccframes, frame, true)
+			enableCompactUnitFrames(self, frame)
 		end
     end)
 
