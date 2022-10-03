@@ -174,6 +174,15 @@ function Clique:Toggle_BlizzCompactUnitFrames(toggle)
 			index = index + 1
 			frame = _G["CompactRaidFrame" .. index]
 		end
+
+		index = 1
+		frame = _G["CompactPartyFrameMember" .. index]
+		while frame do
+			enableCompactUnitFrames(self, frame)
+
+			index = index + 1
+			frame = _G["CompactPartyFrameMember" .. index]
+		end
 	end
 end
 
