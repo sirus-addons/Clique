@@ -265,7 +265,7 @@ function Clique:CreateOptionsFrame()
     local frame = CreateFrame("Frame", "CliqueFrame", CliquePulloutTab)
     frame:SetHeight(415)
     frame:SetWidth(400)
-    frame:SetPoint("LEFT", SpellBookFrame, "RIGHT", 15, 30)
+	frame:SetPoint("LEFT", SpellBookFrame, "RIGHT", 40, 56)
 	self:SkinFrame(frame)
 	frame:SetToplevel(true)
 	frame.title:SetText("Clique v. " .. Clique.version .. " - " .. tostring(Clique.db.keys.profile));
