@@ -29,7 +29,9 @@ function Clique:Enable()
 			tooltips = false,
 		},
         char = {
-			compactraid = true,
+
+            compactraid = true,
+
             switchSpec = false,
             downClick = false,
         },
@@ -230,8 +232,10 @@ function Clique:EnableFrames()
 			rawset(self.ccframes, frame, true)
 		end
     end
+
 	self:Enable_BlizzCompactUnitFrames()
-end
+end	   
+
 
 function Clique:SpellBookButtonPressed(frame, button)
     local name, rank, texture = GetSpellInfo(this:GetParent().data or 0)
