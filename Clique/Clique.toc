@@ -2,7 +2,7 @@
 ## Title: Clique
 ## Author: Cladhaire
 ## Version: r143
-## Notes: |@Version: 3@|Simply powerful click-casting interface
+## Notes: |@Version: 4@|Simply powerful click-casting interface
 ## SavedVariables: CliqueDB
 ## OptionalDeps: Dongle
 ## X-Curse-Packaged-Version: r143-release

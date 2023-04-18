@@ -158,9 +158,19 @@ function Clique:OptionsOnLoad()
 end
 
 function Clique:LEARNED_SPELL_IN_TAB()
-    local num = GetNumSpellTabs()
-    CliquePulloutTab:ClearAllPoints()
-    CliquePulloutTab:SetPoint("TOPLEFT","SpellBookSkillLineTab"..(num),"BOTTOMLEFT",0,-17)
+	local sideTabFrame;
+	local num = #SpellBookSideTabsFrame.tabs;
+	for i = num, 1, -1 do
+		local tab = SpellBookSideTabsFrame.tabs[i];
+		if tab and tab:IsShown() then
+			sideTabFrame = tab;
+			break;
+		end
+	end
+	if sideTabFrame then
+		CliquePulloutTab:ClearAllPoints();
+		CliquePulloutTab:SetPoint("TOPLEFT",sideTabFrame,"BOTTOMLEFT",0,-17)
+	end
 end
 
 function Clique:ToggleSpellBookButtons()
