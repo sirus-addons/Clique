@@ -22,7 +22,7 @@ jobs:
         id: vars
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Build project # This would actually build your project, using zip for an example artifact
-        run: zip -r "${{ github.event.repository.name }}" . -x *.git* README.md -x addon-meta.yml -x .travis.yml -x .github/*
+        run: zip -r "${{ github.event.repository.name }}" . -x *.git* README.md -x addon-meta.yml -x .travis.yml -x .github/* -x .vscode/*
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
