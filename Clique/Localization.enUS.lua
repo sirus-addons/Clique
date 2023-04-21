@@ -12,7 +12,7 @@ if GetLocale() then
 
 	L.RACIAL_PASSIVE          = "Racial Passive"
 	L.PASSIVE                 = SPELL_PASSIVE
-	
+
 	L.CLICKSET_DEFAULT        = "Default"
 	L.CLICKSET_HARMFUL        = "Harmful actions"
 	L.CLICKSET_HELPFUL        = "Helpful actions"
@@ -64,7 +64,7 @@ if GetLocale() then
 
 	L.HELP_TEXT               = "Welcome to Clique.  For basic operation, you can navigate the spellbook and decide what spell you'd like to bind to a specific click.  Then click on that spell with whatever click-binding you would like.  For example, navigate to \"Flash Heal\" and shift-LeftClick on it to bind that spell to Shift-LeftClick."
 	L.CUSTOM_HELP             = "This is the Clique custom edit screen.  From here you can configure any of the combinations that the UI makes available to us in response to clicks.  Select a base action from the left column.  You can then click on the button below to set the binding you'd like, and then supply the arguments required (if any)."
-	
+
 	L.BS_ACTIONBAR_HELP = "Change the actionbar.  'increment' will move it up one page, 'decrement' does the opposite.  If you supply a number, the action bar will be turned to that page.  You can specify 1,3 to toggle between pages 1 and 3"
 	L.BS_ACTIONBAR_ARG1_LABEL = "Action:"
 
@@ -94,7 +94,7 @@ if GetLocale() then
 	L.BS_MACRO_ARG2_LABEL = "Macro Text:"
 
 	L.BS_STOP_HELP = "Stops casting the current spell"
-	
+
 	L.BS_TARGET_HELP = "Targets the unit"
 	L.BS_TARGET_ARG1_LABEL = "(Optional) Unit:"
 
@@ -120,5 +120,28 @@ if GetLocale() then
     L.DOWNCLICK_LABEL = "Trigger clicks on the 'down' portion of the click"
     L.SPECSWITCH_LABEL = "Change profile when switching talent specs"
 	L.COMPACT_RAID_FRAMES_LABEL = "Compact raid frames"
+
+	L.BINDING_PROBLEM = "That combination is already bound.  Delete the old one before trying to re-bind."
+	L.BUTTON = "Button"
+	L.BUTTON4 = "Button4"
+	L.BUTTON5 = "Button5"
+	L.CANCEL = "Cancel"
+	L.CLICK_SET = "Click Set:"
+	L.CLIQUE_CONFIG = "Clique configuration"
+	L.COMBAT_LOCKDOWN = "You are currently in combat.  You cannot make changes to your click casting while in combat."
+	L.DELETE_PROFILE = "Enter the name of a profile you'd like to delete"
+	L.LEFT_BUTTON = "LeftButton"
+	L.MIDDLE_BUTTON = "MiddleButton"
+	L.NEW = "New"
+	L.NEW_PROFILE = "Enter the name of a new profile you'd like to create"
+	L.OPTIONS = "Options"
+	L.PROFILE = "Profile: "
+	L.PROFILE_NAME = "Profile Name"
+	L.RIGHT_BUTTON = "RightButton"
+	L.SAVE = "Save"
+	L.SELECT_A_CLICK_SET = "Select a click-set to edit"
+	L.SET = "Set"
+	L.SET_BINDING = "Set Click Binding"
+	L.TALENT_SWITCH = "Detected a talent spec change, changing profile"
 end
 

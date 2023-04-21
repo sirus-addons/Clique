@@ -73,7 +73,7 @@ function Clique:OptionsOnLoad()
                 end
 
                 local texture = self.texture
-                if fading then 
+                if fading then
                     texture:SetAlpha(1.0 - (counter / 0.5))
                 else
                     texture:SetAlpha(counter / 0.5)
@@ -83,14 +83,14 @@ function Clique:OptionsOnLoad()
     end)
 	CliquePulloutTab:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
-		GameTooltip:SetText("Clique configuration")
+		GameTooltip:SetText(L.CLIQUE_CONFIG)
 		GameTooltip:Show()
 	end)
-   
+
     local frame = CreateFrame("Frame", "CliqueFlashFrame", CliquePulloutTab)
     frame:SetWidth(10) frame:SetHeight(10)
     frame:SetPoint("CENTER", 0, 0)
-            
+
     local texture = frame:CreateTexture(nil, "OVERLAY")
     texture:SetTexture("Interface\\Buttons\\CheckButtonGlow")
     texture:SetHeight(64) texture:SetWidth(64)
@@ -154,7 +154,7 @@ function Clique:OptionsOnLoad()
 			end
 		end
 	end
-	hooksecurefunc("PaperDollItemSlotButton_OnModifiedClick", dollFunc)		
+	hooksecurefunc("PaperDollItemSlotButton_OnModifiedClick", dollFunc)
 end
 
 function Clique:LEARNED_SPELL_IN_TAB()
@@ -184,7 +184,7 @@ function Clique:Toggle()
             CliqueFrame:Show()
 			CliquePulloutTab:SetChecked(true)
         end
-    end    
+    end
 
     Clique:ToggleSpellBookButtons()
     self:ListScrollUpdate()
@@ -202,9 +202,9 @@ end
 
 function Clique:SkinFrame(frame)
 	frame:SetBackdrop({
-		bgFile = "Interface\\AddOns\\Clique\\images\\backdrop.tga", 
+		bgFile = "Interface\\AddOns\\Clique\\images\\backdrop.tga",
 		edgeFile = "Interface\\AddOns\\Clique\\images\\borders.tga", tile = true,
-		tileSize = 32, edgeSize = 16, 
+		tileSize = 32, edgeSize = 16,
 		insets = {left = 16, right = 16, top = 16, bottom = 16}
 	});
 
@@ -236,11 +236,11 @@ function Clique:SkinFrame(frame)
 	frame.header:SetTexture("Interface\\AddOns\\Clique\\images\\header.tga");
 	frame.header:SetPoint("TOPLEFT", frame.headerLeft, "TOPRIGHT");
 	frame.header:SetPoint("BOTTOMRIGHT", frame.headerRight, "BOTTOMLEFT");
-		
+
 	frame.title = frame.titleBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall");
 	frame.title:SetWidth(200); frame.title:SetHeight(16);
 	frame.title:SetPoint("TOP", 0, -2);
-		
+
 	frame.footerLeft = frame:CreateTexture(nil, "ARTWORK");
 	frame.footerLeft:SetTexture("Interface\\AddOns\\Clique\\images\\footCorner.tga");
 	frame.footerLeft:SetWidth(48); frame.footerLeft:SetHeight(48);
@@ -261,7 +261,7 @@ end
 function Clique:CreateOptionsFrame()
     local frames = {}
     self.frames = frames
-    
+
     local frame = CreateFrame("Frame", "CliqueFrame", CliquePulloutTab)
     frame:SetHeight(415)
     frame:SetWidth(400)
@@ -278,7 +278,7 @@ function Clique:CreateOptionsFrame()
 		end
 	end)
 
-	CliqueFrame:SetScript("OnShow", function(self) 
+	CliqueFrame:SetScript("OnShow", function(self)
 		if InCombatLockdown() then
 			Clique:Toggle()
 			return
@@ -295,10 +295,10 @@ function Clique:CreateOptionsFrame()
 			Clique:Toggle()
 		end
 	end)
-    
+
     local frame = CreateFrame("Frame", "CliqueListFrame", CliqueFrame)
     frame:SetAllPoints()
-    
+
     local onclick = function(button)
 		local offset = FauxScrollFrame_GetOffset(CliqueListScroll)
 		self.listSelected = offset + button.id
@@ -309,7 +309,7 @@ function Clique:CreateOptionsFrame()
 		onclick(button)
 		CliqueButtonEdit:Click()
 	end
-    
+
     local onenter = function(button) button:SetBackdropBorderColor(1, 1, 1) end
     local onleave = function(button)
         local selected = FauxScrollFrame_GetOffset(CliqueListScroll) + button.id
@@ -328,7 +328,7 @@ function Clique:CreateOptionsFrame()
         entry:SetBackdrop({
           bgFile="Interface\\Tooltips\\UI-Tooltip-Background",
           edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-          tile = true, tileSize = 8, edgeSize = 16, 
+          tile = true, tileSize = 8, edgeSize = 16,
           insets = {left = 2, right = 2, top = 2, bottom = 2}})
 
         entry:SetBackdropBorderColor(0.3, 0.3, 0.3)
@@ -355,12 +355,12 @@ function Clique:CreateOptionsFrame()
     for i=2,NUM_ENTRIES do
         frames[i]:SetPoint("TOP", frames[i-1], "BOTTOM", 0, 2)
     end
-    
+
     local endButton = getglobal("CliqueList"..NUM_ENTRIES)
     CreateFrame("ScrollFrame", "CliqueListScroll", CliqueListFrame, "FauxScrollFrameTemplate")
     CliqueListScroll:SetPoint("TOPLEFT", CliqueList1, "TOPLEFT", 0, 0)
     CliqueListScroll:SetPoint("BOTTOMRIGHT", endButton, "BOTTOMRIGHT", 0, 0)
-    
+
     local texture = CliqueListScroll:CreateTexture(nil, "BACKGROUND")
     texture:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
     texture:SetPoint("TOPLEFT", CliqueListScroll, "TOPRIGHT", 14, 0)
@@ -372,7 +372,7 @@ function Clique:CreateOptionsFrame()
     texture:SetPoint("TOPLEFT", CliqueListScroll, "TOPRIGHT", 4, 0)
     texture:SetPoint("BOTTOMRIGHT", CliqueListScroll, "BOTTOMRIGHT", 14, 0)
     texture:SetGradientAlpha("HORIZONTAL", 0.15, 0.15, 0.15, 0.15, 1, 0.5, 0.25, 0.05, 0)
-    
+
     local update = function() Clique:ListScrollUpdate() end
 
 	CliqueListScroll:SetScript("OnVerticalScroll", update, function(self, offset)
@@ -413,7 +413,7 @@ function Clique:CreateOptionsFrame()
 		end
         Clique:TextListScrollUpdate()
     end
-    
+
     local onenter = function(button) button:SetBackdropBorderColor(1, 1, 1) end
     local onleave = function(button)
         local selected = FauxScrollFrame_GetOffset(CliqueTextListScroll) + button.id
@@ -430,9 +430,9 @@ function Clique:CreateOptionsFrame()
         entry:SetBackdrop({
 --          bgFile="Interface\\Tooltips\\UI-Tooltip-Background",
 --          edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
---          tile = true, tileSize = 8, edgeSize = 16, 
+--          tile = true, tileSize = 8, edgeSize = 16,
           insets = {left = 2, right = 2, top = 2, bottom = 2}})
-		
+
         entry:SetBackdropBorderColor(0.3, 0.3, 0.3)
         entry:SetBackdropColor(0.1, 0.1, 0.1, 0.3)
         entry:SetScript("OnClick", onclick)
@@ -464,7 +464,7 @@ function Clique:CreateOptionsFrame()
 		entry.name = entry:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 		entry.name:SetPoint("LEFT", 25, 0)
 		entry.name:SetJustifyH("LEFT")
-		entry.name:SetText("Profile Name")
+		entry.name:SetText(L.PROFILE_NAME)
 		frames[i] = entry
 	end
 
@@ -477,7 +477,7 @@ function Clique:CreateOptionsFrame()
     CreateFrame("ScrollFrame", "CliqueTextListScroll", CliqueTextListFrame, "FauxScrollFrameTemplate")
     CliqueTextListScroll:SetPoint("TOPLEFT", CliqueTextList1, "TOPLEFT", 0, 0)
     CliqueTextListScroll:SetPoint("BOTTOMRIGHT", endButton, "BOTTOMRIGHT", 0, 0)
-    
+
     local texture = CliqueTextListScroll:CreateTexture(nil, "BACKGROUND")
     texture:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
     texture:SetPoint("TOPLEFT", CliqueTextListScroll, "TOPRIGHT", 14, 0)
@@ -489,13 +489,13 @@ function Clique:CreateOptionsFrame()
     texture:SetPoint("TOPLEFT", CliqueTextListScroll, "TOPRIGHT", 4, 0)
     texture:SetPoint("BOTTOMRIGHT", CliqueTextListScroll, "BOTTOMRIGHT", 14, 0)
     texture:SetGradientAlpha("HORIZONTAL", 0.15, 0.15, 0.15, 0.15, 1, 0.5, 0.25, 0.05, 0)
-    
+
     local update = function()
 		Clique:TextListScrollUpdate()
 	end
 
     CliqueTextListScroll:SetScript("OnVerticalScroll", function(self, offset)
-		FauxScrollFrame_OnVerticalScroll(self, offset, 22, update) 
+		FauxScrollFrame_OnVerticalScroll(self, offset, 22, update)
 	end)
     CliqueTextListFrame:SetScript("OnShow", update)
 	CliqueTextListFrame:Hide()
@@ -508,7 +508,7 @@ function Clique:CreateOptionsFrame()
 
 	CliqueDropDownButton:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
-		GameTooltip:SetText("Select a click-set to edit")
+		GameTooltip:SetText(L.SELECT_A_CLICK_SET)
 		GameTooltip:Show()
 	end)
 	CliqueDropDownButton:SetScript("OnLeave", function(self)
@@ -516,7 +516,7 @@ function Clique:CreateOptionsFrame()
 	end)
 
 	local font = CliqueDropDown:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	font:SetText("Click Set:")
+	font:SetText(L.CLICK_SET)
 	font:SetPoint("RIGHT", CliqueDropDown, "LEFT", 5, 3)
 	-- Button Creations
     local buttonFunc = function(self) Clique:ButtonOnClick(self) end
@@ -526,46 +526,46 @@ function Clique:CreateOptionsFrame()
 	button:SetWidth(25)
 	button:SetPoint("TOPRIGHT", -5, 3)
 	button:SetScript("OnClick", buttonFunc)
-    
+
     local button = CreateFrame("Button", "CliqueButtonCustom", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Custom")
+    button:SetText(L.CUSTOM)
     button:SetPoint("BOTTOMLEFT", CliqueFrame, "BOTTOMLEFT", 10, 5)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonFrames", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Frames")
+    button:SetText(L.FRAMES)
     button:SetPoint("LEFT", CliqueButtonCustom, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonProfiles", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Profiles")
+    button:SetText(L.PROFILES)
     button:SetPoint("LEFT", CliqueButtonFrames, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonOptions", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Options")
+    button:SetText(L.OPTIONS)
     button:SetPoint("LEFT", CliqueButtonProfiles, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonDelete", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Delete")
+    button:SetText(L.DELETE)
     button:SetPoint("LEFT", CliqueButtonOptions, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonEdit", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Edit")
+    button:SetText(L.EDIT)
     button:SetPoint("LEFT", CliqueButtonDelete, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
@@ -580,21 +580,21 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueButtonDeleteProfile", CliqueTextListFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Delete")
+    button:SetText(L.DELETE)
     button:SetPoint("BOTTOMLEFT", CliqueTextListFrame, "BOTTOMLEFT", 30, 5)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonSetProfile", CliqueTextListFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("Set")
+    button:SetText(L.SET)
     button:SetPoint("LEFT", CliqueButtonDeleteProfile, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueButtonNewProfile", CliqueTextListFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
-    button:SetText("New")
+    button:SetText(L.NEW)
     button:SetPoint("LEFT", CliqueButtonSetProfile, "RIGHT", 3, 0)
     button:SetScript("OnClick", buttonFunc)
 
@@ -608,7 +608,7 @@ function Clique:CreateOptionsFrame()
     frame:Hide()
     self:CreateOptionsWidgets(frame)
 
-	self.customEntry = {}    
+	self.customEntry = {}
     local frame = CreateFrame("Frame", "CliqueCustomFrame", CliqueFrame)
     frame:SetHeight(400)
 	frame:SetWidth(450)
@@ -681,7 +681,7 @@ function Clique:CreateOptionsFrame()
 		button.name = button:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 		button.name:SetPoint("LEFT", 25, 0)
 		button.name:SetJustifyH("LEFT")
-		
+
 		local entry = buttons[1]
 		local name = "CliqueRadioButton"..entry.type
 		local button = CreateFrame("CheckButton", name, CliqueCustomFrame)
@@ -693,7 +693,7 @@ function Clique:CreateOptionsFrame()
 	local button = getglobal("CliqueRadioButton"..entry.type)
 	button.type = entry.type
 	button.name:SetText(entry.name)
-	button:SetPoint("TOPLEFT", 5, -30)	
+	button:SetPoint("TOPLEFT", 5, -30)
 	button:SetScript("OnClick", checkFunc)
 	self.radio[button] = true
 
@@ -703,10 +703,10 @@ function Clique:CreateOptionsFrame()
 		local entry = buttons[i]
 		local name = "CliqueRadioButton"..entry.type
 		local button = getglobal(name)
-	
+
 		button.type = entry.type
 		button.name:SetText(entry.name)
-		button:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, 0)	
+		button:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, 0)
 		button:SetScript("OnClick", checkFunc)
 		self.radio[button] = true
 		prev = button
@@ -717,13 +717,13 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueCustomButtonBinding", CliqueCustomFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(30)
     button:SetWidth(175)
-    button:SetText("Set Click Binding")
+    button:SetText(L.SET_BINDING)
     button:SetPoint("TOP", CliqueCustomHelpText, "BOTTOM", 40, -10)
     button:SetScript("OnClick", function(self) Clique:CustomBinding_OnClick(self) end )
 	button:RegisterForClicks("AnyUp")
 
 	-- Button for icon selection
-	
+
 	local button = CreateFrame("Button", "CliqueCustomButtonIcon", CliqueCustomFrame)
 	button.icon = button:CreateTexture(nil, "BORDER")
 	button.icon:SetAllPoints()
@@ -739,7 +739,7 @@ function Clique:CreateOptionsFrame()
 		GameTooltip:SetText("Click here to set icon")
 		GameTooltip:Show()
     end
-    
+
     button:SetScript("OnEnter", func)
     button:SetScript("OnLeave", function() GameTooltip:Hide() end)
 	button:SetScript("OnClick", function() CliqueIconSelectFrame:Show() end)
@@ -788,7 +788,7 @@ function Clique:CreateOptionsFrame()
 
 	local edit = CreateFrame("ScrollFrame", "CliqueMulti", CliqueCustomFrame, "CliqueEditTemplate")
 	edit:SetPoint("TOPRIGHT", CliqueCustomArg1, "BOTTOMRIGHT", -10, -27)
-	
+
 	local name = edit:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 	name:SetText("Macro Text:")
 	name:SetJustifyH("RIGHT")
@@ -864,14 +864,14 @@ function Clique:CreateOptionsFrame()
     local button = CreateFrame("Button", "CliqueCustomButtonCancel", CliqueCustomFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(70)
-    button:SetText("Cancel")
+    button:SetText(L.CANCEL)
     button:SetPoint("BOTTOM", 65, 4)
     button:SetScript("OnClick", buttonFunc)
 
     local button = CreateFrame("Button", "CliqueCustomButtonSave", CliqueCustomFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(70)
-    button:SetText("Save")
+    button:SetText(L.SAVE)
     button:SetPoint("LEFT", CliqueCustomButtonCancel, "RIGHT", 6, 0)
     button:SetScript("OnClick", buttonFunc)
 
@@ -1005,7 +1005,7 @@ function Clique:CreateOptionsFrame()
 	CliqueHelpText:SetJustifyH("CENTER")
 	CliqueHelpText:SetJustifyV("CENTER")
 	CliqueHelpText:SetPoint("CENTER", 0, 0)
-    
+
     self.sortList = {}
     self.listSelected = 0
 end
@@ -1019,12 +1019,12 @@ function Clique:ListScrollUpdate()
     local offset = FauxScrollFrame_GetOffset(CliqueListScroll)
 	FauxScrollFrame_Update(CliqueListScroll, table.getn(clickCasts), NUM_ENTRIES, ENTRY_SIZE)
 
-    if not CliqueListScroll:IsShown() then 
+    if not CliqueListScroll:IsShown() then
         CliqueFrame:SetWidth(400)
     else
         CliqueFrame:SetWidth(425)
     end
-	
+
     for i=1,NUM_ENTRIES do
         idx = offset + i
         button = getglobal("CliqueList"..i)
@@ -1045,7 +1045,7 @@ end
 
 local sortFunc = function(a,b)
     local numA = tonumber(a.button) or 0
-    local numB = tonumber(b.button) or 0  
+    local numB = tonumber(b.button) or 0
 
     if numA == numB then
         return a.modifier < b.modifier
@@ -1064,7 +1064,7 @@ end
 
 function Clique:ValidateButtons()
     local entry = self.sortList[self.listSelected]
-    
+
     if entry then
         CliqueButtonDelete:Enable()
         CliqueButtonEdit:Enable()
@@ -1072,7 +1072,7 @@ function Clique:ValidateButtons()
         CliqueButtonDelete:Disable()
         CliqueButtonEdit:Disable()
     end
-    
+
     -- This should always be enabled
     CliqueButtonCustom:Enable()
     CliqueButtonOptions:Enable()
@@ -1101,7 +1101,7 @@ function Clique:FillListEntry(frame, idx)
 
     local type = string.format("%s%s", string.upper(string.sub(entry.type, 1, 1)), string.sub(entry.type, 2))
 	local button = entry.button
-    
+
     frame.icon:SetTexture(entry.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
 	frame.binding:SetText(entry.modifier..self:GetButtonText(button))
 
@@ -1162,16 +1162,16 @@ function Clique:ButtonOnClick(button)
 
         self.editSet[entry.modifier..entry.button] = nil
         local len = table.getn(self.sortList) - 1
-        
+
         if self.listSelected > len then
             self.listSelected = len
         end
-	
+
 		self:DeleteAction(entry)
 		self:UpdateClicks()
 		self:PLAYER_REGEN_ENABLED()
 		entry = nil
-        
+
         self:ListScrollUpdate()
 	elseif button == CliqueButtonClose then
 		self:Toggle()
@@ -1262,14 +1262,14 @@ function Clique:ButtonOnClick(button)
 
 		CliqueCustomButtonBinding.modifier = entry.modifier
 		CliqueCustomButtonBinding.button = self:GetButtonNumber(entry.button)
-		CliqueCustomButtonBinding:SetText(string.format("%s%s", entry.modifier, self:GetButtonText(entry.button)))	
+		CliqueCustomButtonBinding:SetText(string.format("%s%s", entry.modifier, self:GetButtonText(entry.button)))
 
 		self.editEntry = entry
 
     elseif button == CliqueCustomButtonCancel then
 		CliqueCustomFrame:Hide()
 		CliqueCustomButtonIcon.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-		CliqueCustomButtonBinding:SetText("Set Click Binding")
+		CliqueCustomButtonBinding:SetText(L.SET_BINDING)
 		self.customEntry = {}
 		self.editEntry = nil
 		self:CustomRadio()
@@ -1289,7 +1289,7 @@ function Clique:ButtonOnClick(button)
 		if entry.arg3 == "" then entry.arg3 = nil end
 		if entry.arg4 == "" then entry.arg4 = nil end
 		if entry.arg5 == "" then entry.arg5 = nil end
-		
+
 		if tonumber(entry.arg1) then entry.arg1 = tonumber(entry.arg1) end
 		if tonumber(entry.arg2) then entry.arg2 = tonumber(entry.arg2) end
 		if tonumber(entry.arg3) then entry.arg3 = tonumber(entry.arg3) end
@@ -1345,7 +1345,7 @@ function Clique:ButtonOnClick(button)
 		end
 
 		if issue then
-			StaticPopupDialogs["CLIQUE_CANT_SAVE"].text = issue			
+			StaticPopupDialogs["CLIQUE_CANT_SAVE"].text = issue
 			StaticPopup_Show("CLIQUE_CANT_SAVE")
 			return
 		end
@@ -1365,7 +1365,7 @@ function Clique:ButtonOnClick(button)
 		self:PLAYER_REGEN_ENABLED()
 		self:ButtonOnClick(CliqueCustomButtonCancel)
 	end
-    
+
     Clique:ValidateButtons()
     Clique:ListScrollUpdate()
 end
@@ -1418,7 +1418,20 @@ function Clique:CustomBinding_OnClick(frame)
 
 	self.customEntry.modifier = mod
 	self.customEntry.button = button
-	frame:SetText(string.format("%s%s", mod, arg1))	
+
+	local localizedButtonName
+	if arg1 == "LeftButton" then
+		localizedButtonName = L.LEFTBUTT
+	elseif arg1 == "RightButton" then
+		localizedButtonName = L.RIGHTBUTT
+	elseif arg1 == "MiddleButton" then
+		localizedButtonName = L.MIDDLEBUTT
+	elseif arg1 == "Button5" then
+		localizedButtonName = L.BUTTON5
+	elseif arg1 == "Button4" then
+		localizedButtonName = L.BUTTON4
+	end
+	frame:SetText(string.format("%s%s", mod, localizedButtonName or arg1))
 end
 
 local buttonSetup = {
@@ -1495,7 +1508,7 @@ function Clique:CustomRadio(button)
 		CliqueCustomArg3:Hide()
 		CliqueCustomArg4:Hide()
 		CliqueCustomArg5:Hide()
-		CliqueCustomButtonBinding:SetText("Set Click Binding")
+		CliqueCustomButtonBinding:SetText(L.SET_BINDING)
 		return
 	end
 
@@ -1507,7 +1520,7 @@ function Clique:CustomRadio(button)
 			self.customEntry.type = nil
 		end
 	end
-	
+
 	-- Clear any open arguments
 	CliqueCustomArg1:SetText("")
 	CliqueCustomArg2:SetText("")
@@ -1552,11 +1565,11 @@ function Clique:UpdateIconFrame()
     for i=1, NUM_MACRO_ICONS_SHOWN do
         macroPopupIcon = getglobal("CliqueIcon"..i.."Icon");
         macroPopupButton = getglobal("CliqueIcon"..i);
-        
+
         if not macroPopupButton.icon then
             macroPopupButton.icon = macroPopupIcon
         end
-        
+
         local index = (macroPopupOffset * NUM_ICONS_PER_ROW) + i;
         if ( index <= numMacroIcons ) then
             macroPopupIcon:SetTexture(GetMacroIconInfo(index));
@@ -1567,7 +1580,7 @@ function Clique:UpdateIconFrame()
         end
         macroPopupButton:SetChecked(nil);
     end
-    
+
     FauxScrollFrame_Update(CliqueIconScrollFrame, ceil(numMacroIcons / NUM_ICONS_PER_ROW) , NUM_ICON_ROWS, MACRO_ICON_ROW_HEIGHT );
 end
 
@@ -1597,7 +1610,7 @@ StaticPopupDialogs["CLIQUE_CANT_SAVE"] = {
 }
 
 StaticPopupDialogs["CLIQUE_BINDING_PROBLEM"] = {
-	text = "That combination is already bound.  Delete the old one before trying to re-bind.",
+	text = L.BINDING_PROBLEM,
 	button1 = TEXT(OKAY),
 	OnAccept = function()
 	end,
@@ -1606,7 +1619,7 @@ StaticPopupDialogs["CLIQUE_BINDING_PROBLEM"] = {
 }
 
 StaticPopupDialogs["CLIQUE_COMBAT_LOCKDOWN"] = {
-	text = "You are currently in combat.  You cannot make changes to your click casting while in combat..",
+	text = L.COMBAT_LOCKDOWN,
 	button1 = TEXT(OKAY),
 	OnAccept = function()
 	end,
@@ -1615,7 +1628,7 @@ StaticPopupDialogs["CLIQUE_COMBAT_LOCKDOWN"] = {
 }
 
 StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
-	text = TEXT("Enter the name of a new profile you'd like to create"),
+	text = L.NEW_PROFILE,
 	button1 = TEXT(OKAY),
 	button2 = TEXT(CANCEL),
 	OnAccept = function(self)
@@ -1656,7 +1669,7 @@ StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
 }
 
 StaticPopupDialogs["CLIQUE_DELETE_PROFILE"] = {
-	text = TEXT("Enter the name of a profile you'd like to delete"),
+	text = L.DELETE_PROFILE,
 	button1 = TEXT(OKAY),
 	button2 = TEXT(CANCEL),
 	OnAccept = function(self)
@@ -1715,10 +1728,10 @@ function Clique:TextListScrollUpdate()
 	if self.textlist == "PROFILES" then
 		for k,v in pairs(self.db.profiles) do table.insert(work, k) end
 		table.sort(work)
-		CliqueTextListFrame.title:SetText("Profile: " .. self.db.keys.profile)
+		CliqueTextListFrame.title:SetText(L.PROFILE .. self.db.keys.profile)
 
 	elseif self.textlist == "FRAMES" then
-		for k,v in pairs(self.ccframes) do 
+		for k,v in pairs(self.ccframes) do
 			local name = k:GetName()
 			if name then
 				table.insert(work, name)
@@ -1726,16 +1739,16 @@ function Clique:TextListScrollUpdate()
 		end
 		table.sort(work)
 	end
-	
+
     local offset = FauxScrollFrame_GetOffset(CliqueTextListScroll)
     FauxScrollFrame_Update(CliqueTextListScroll, #work, 12, 22)
 
-    if not CliqueTextListScroll:IsShown() then 
+    if not CliqueTextListScroll:IsShown() then
         CliqueTextListFrame:SetWidth(250)
     else
         CliqueTextListFrame:SetWidth(275)
     end
-	
+
     for i=1,12 do
         idx = offset + i
         button = getglobal("CliqueTextList"..i)
@@ -1774,7 +1787,7 @@ function Clique:TextListScrollUpdate()
 				local name = work[idx]
 				local frame = getglobal(name)
 
-				if not self.profile.blacklist then 
+				if not self.profile.blacklist then
 					self.profile.blacklist = {}
 				end
 				local bl = self.profile.blacklist
@@ -1867,7 +1880,7 @@ function Clique:CreateOptionsWidgets(parent)
 		else
 			priDropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
 		end
-		
+
 		priDropdown.label = priDropdown:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 		priDropdown.label:SetFormattedText(L["Spec: %d"], i)
 		priDropdown.label:SetPoint("RIGHT", priDropdown, "LEFT", 0, 0)
@@ -1881,10 +1894,10 @@ function Clique:CreateOptionsWidgets(parent)
 			end
 
 			local work = {}
-			for k,v in pairs(Clique.db.profiles) do 
+			for k,v in pairs(Clique.db.profiles) do
 				table.insert(work, k)
 			end
-			table.sort(work) 
+			table.sort(work)
 
 			for idx,profile in ipairs(work) do
 				local info = UIDropDownMenu_CreateInfo()

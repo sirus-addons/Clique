@@ -34,7 +34,7 @@ function Clique:Enable()
             downClick = false,
         },
 	}
-	
+
 	self.db = self:InitializeDB("CliqueDB", self.defaults)
 	self.profile = self.db.profile
 	self.clicksets = self.profile.clicksets
@@ -53,7 +53,7 @@ function Clique:Enable()
 			rawset(self.ccframes, k, v)
 		end
     end
-    
+
 	ClickCastFrames = setmetatable({}, {__newindex=newindex})
 
     Clique:OptionsOnLoad()
@@ -109,7 +109,7 @@ function Clique:Enable()
 			Clique:AddTooltipLines()
 		end)
 	end
-		
+
     hooksecurefunc("CreateFrame", raidFunc)
 
 	-- Create our slash command
@@ -223,13 +223,13 @@ function Clique:EnableFrames()
         Boss3TargetFrame,
         Boss4TargetFrame,
     }
-    
+
     for i,frame in pairs(tbl) do
 		rawset(self.ccframes, frame, true)
     end
 
 	self:Enable_BlizzCompactUnitFrames()
-end	   
+end
 
 function Clique:SpellBookButtonPressed(frame, button)
     local name, rank, texture = GetSpellInfo(this:GetParent().data or 0)
@@ -238,7 +238,7 @@ function Clique:SpellBookButtonPressed(frame, button)
 		StaticPopup_Show("CLIQUE_PASSIVE_SKILL")
 		return
     end
-    
+
     local type = "spell"
 
 	if self.editSet == self.clicksets[L.CLICKSET_HARMFUL] then
@@ -248,7 +248,7 @@ function Clique:SpellBookButtonPressed(frame, button)
 	else
 		button = self:GetButtonNumber(button)
 	end
-   
+
 	-- Clear the rank if "Show all spell ranks" is selected
 	if not GetCVarBool("ShowAllSpellRanks") then
 		rank = nil
@@ -263,14 +263,14 @@ function Clique:SpellBookButtonPressed(frame, button)
 		["arg1"] = name,
 		["arg2"] = rank,
     }
-    
+
     local key = t.modifier .. t.button
-    
+
     if self:CheckBinding(key) then
 		StaticPopup_Show("CLIQUE_BINDING_PROBLEM")
 	return
     end
-    
+
     self.editSet[key] = t
     self:ListScrollUpdate()
 	self:UpdateClicks()
@@ -331,19 +331,19 @@ function Clique:UpdateClicks()
             table.insert(self.ooc, entry)
         end
     end
-	
+
     self:UpdateTooltip()
 end
 
 function Clique:RegisterFrame(frame)
 	local name = frame:GetName()
 
-	if self.profile.blacklist[name] then 
+	if self.profile.blacklist[name] then
 		rawset(self.ccframes, frame, false)
-		return 
+		return
 	end
 
-	if not ClickCastFrames[frame] then 
+	if not ClickCastFrames[frame] then
 		rawset(self.ccframes, frame, true)
 		if CliqueTextListFrame then
 			Clique:TextListScrollUpdate()
@@ -376,7 +376,7 @@ function Clique:ApplyClickSet(name, frame)
 		for modifier,entry in pairs(set) do
 			self:SetAction(entry)
 		end
-	end					
+	end
 end
 
 function Clique:RemoveClickSet(name, frame)
@@ -390,7 +390,7 @@ function Clique:RemoveClickSet(name, frame)
 		for modifier,entry in pairs(set) do
 			self:DeleteAction(entry)
 		end
-	end					
+	end
 end
 
 function Clique:UnregisterFrame(frame)
@@ -417,7 +417,7 @@ function Clique:DONGLE_PROFILE_CHANGED(event, db, parent, svname, profileKey)
 		self.clicksets = self.profile.clicksets
 		self.editSet = self.clicksets[L.CLICKSET_DEFAULT]
 		self.profileKey = profileKey
-	
+
 		-- Refresh the profile editor if it exists
 		self.textlistSelected = nil
 		self:TextListScrollUpdate()
@@ -439,7 +439,7 @@ function Clique:DONGLE_PROFILE_RESET(event, db, parent, svname, profileKey)
 		self.clicksets = self.profile.clicksets
 		self.editSet = self.clicksets[L.CLICKSET_DEFAULT]
 		self.profileKey = profileKey
-	
+
 		-- Refresh the profile editor if it exists
 		self.textlistSelected = nil
 		self:TextListScrollUpdate()
@@ -455,7 +455,7 @@ end
 function Clique:DONGLE_PROFILE_DELETED(event, db, parent, svname, profileKey)
 	if db == self.db then
 		self:PrintF(L.PROFILE_DELETED, profileKey)
-	
+
 		self.textlistSelected = nil
 		self:TextListScrollUpdate()
 		self:ListScrollUpdate()
@@ -483,7 +483,7 @@ function Clique:SetAttribute(entry, frame)
 
 	if entry.type == "actionbar" then
 		frame:SetAttribute(entry.modifier.."type"..button, entry.type)
-		frame:SetAttribute(entry.modifier.."action"..button, entry.arg1)		
+		frame:SetAttribute(entry.modifier.."action"..button, entry.arg1)
 	elseif entry.type == "action" then
 		frame:SetAttribute(entry.modifier.."type"..button, entry.type)
 		frame:SetAttribute(entry.modifier.."action"..button, entry.arg1)
@@ -658,7 +658,7 @@ function Clique:UpdateTooltip()
 		table.insert(tt_help, {mod = mod, action = action})
 	end
 
-	local function sort(a,b) 
+	local function sort(a,b)
 		return a.mod < b.mod
 	end
 
@@ -667,7 +667,7 @@ function Clique:UpdateTooltip()
 	table.sort(tt_harm, sort)
 	table.sort(tt_help, sort)
 end
-	
+
 function Clique:AddTooltipLines()
 	if not self.profile.tooltips then return end
 
@@ -710,7 +710,7 @@ end
 
 function Clique:ToggleTooltip()
 	self.profile.tooltips = not self.profile.tooltips
-	self:PrintF("Listing of bindings in tooltips has been %s", 
+	self:PrintF("Listing of bindings in tooltips has been %s",
 	self.profile.tooltips and "Enabled" or "Disabled")
 end
 
@@ -722,7 +722,7 @@ function Clique:ShowBindings()
 		CliqueTooltip.close:SetHeight(32)
 		CliqueTooltip.close:SetWidth(32)
 		CliqueTooltip.close:SetPoint("TOPRIGHT", 1, 0)
-		CliqueTooltip.close:SetScript("OnClick", function() 
+		CliqueTooltip.close:SetScript("OnClick", function()
 			CliqueTooltip:Hide()
 		end)
 		CliqueTooltip.close:SetNormalTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Up")
@@ -742,14 +742,14 @@ function Clique:ShowBindings()
 		CliqueTooltip:SetScript("OnDragStop", function(self)
 			self:StopMovingOrSizing()
 			ValidateFramePosition(self)
-		end)		
+		end)
 		CliqueTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
 	end
 
 	if not CliqueTooltip:IsShown() then
 		CliqueTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
 	end
-	
+
 	-- Actually fill it with the bindings
 	CliqueTooltip:SetText("Clique Bindings")
 
@@ -776,7 +776,7 @@ function Clique:ShowBindings()
 			CliqueTooltip:AddDoubleLine(v.mod, v.action, 1, 1, 1, 1, 1, 1)
 		end
 	end
-		
+
 	if #tt_ooc > 0 then
 		CliqueTooltip:AddLine(" ")
 		CliqueTooltip:AddLine("Out of combat bindings:")
@@ -793,12 +793,12 @@ function Clique:PLAYER_TALENT_UPDATE()
 
 	local talentGroup = C_Talent.GetActiveTalentGroup()
     if self.db.char.switchSpec and self.talentGroup ~= talentGroup then
-        self:Print("Detected a talent spec change, changing profile")
+        self:Print(L.TALENT_SWITCH)
 		if not self.db.char["profile_"..talentGroup] then
 			self.db.char["profile_"..talentGroup] = self.db.keys.profile
 		end
 		self.db:SetProfile(self.db.char["profile_"..talentGroup])
-		
+
         if CliqueFrame then
             CliqueFrame.title:SetText("Clique v. " .. Clique.version .. " - " .. tostring(Clique.db.keys.profile));
         end
