@@ -86,11 +86,11 @@ function Clique:OptionsOnLoad()
 		GameTooltip:SetText(L.CLIQUE_CONFIG)
 		GameTooltip:Show()
 	end)
-   
+
     local frame = CreateFrame("Frame", "CliqueFlashFrame", CliquePulloutTab)
     frame:SetWidth(10) frame:SetHeight(10)
     frame:SetPoint("CENTER", 0, 0)
-            
+
     local texture = frame:CreateTexture(nil, "OVERLAY")
     texture:SetTexture("Interface\\Buttons\\CheckButtonGlow")
     texture:SetHeight(64) texture:SetWidth(64)
@@ -158,6 +158,7 @@ function Clique:OptionsOnLoad()
 end
 
 function Clique:LEARNED_SPELL_IN_TAB()
+    local num = SpellBookFrame_GetLastNonSpecialTabIndex()
     local num = SpellBookFrame_GetLastNonSpecialTabIndex()
     CliquePulloutTab:ClearAllPoints()
     CliquePulloutTab:SetPoint("TOPLEFT","SpellBookSkillLineTab"..(num),"BOTTOMLEFT",0,-17)
@@ -261,7 +262,7 @@ end
 function Clique:CreateOptionsFrame()
     local frames = {}
     self.frames = frames
-    
+
     local frame = CreateFrame("Frame", "CliqueFrame", CliquePulloutTab)
     frame:SetHeight(415)
     frame:SetWidth(400)
@@ -297,10 +298,10 @@ function Clique:CreateOptionsFrame()
 			Clique:Toggle()
 		end
 	end)
-    
+
     local frame = CreateFrame("Frame", "CliqueListFrame", CliqueFrame)
     frame:SetAllPoints()
-    
+
     local onclick = function(button)
 		local offset = FauxScrollFrame_GetOffset(CliqueListScroll)
 		self.listSelected = offset + button.id
@@ -311,7 +312,7 @@ function Clique:CreateOptionsFrame()
 		onclick(button)
 		CliqueButtonEdit:Click()
 	end
-    
+
     local onenter = function(button) button:SetBackdropBorderColor(1, 1, 1) end
     local onleave = function(button)
         local selected = FauxScrollFrame_GetOffset(CliqueListScroll) + button.id
@@ -357,12 +358,12 @@ function Clique:CreateOptionsFrame()
     for i=2,NUM_ENTRIES do
         frames[i]:SetPoint("TOP", frames[i-1], "BOTTOM", 0, 2)
     end
-    
+
     local endButton = getglobal("CliqueList"..NUM_ENTRIES)
     CreateFrame("ScrollFrame", "CliqueListScroll", CliqueListFrame, "FauxScrollFrameTemplate")
     CliqueListScroll:SetPoint("TOPLEFT", CliqueList1, "TOPLEFT", 0, 0)
     CliqueListScroll:SetPoint("BOTTOMRIGHT", endButton, "BOTTOMRIGHT", 0, 0)
-    
+
     local texture = CliqueListScroll:CreateTexture(nil, "BACKGROUND")
     texture:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
     texture:SetPoint("TOPLEFT", CliqueListScroll, "TOPRIGHT", 14, 0)
@@ -374,7 +375,7 @@ function Clique:CreateOptionsFrame()
     texture:SetPoint("TOPLEFT", CliqueListScroll, "TOPRIGHT", 4, 0)
     texture:SetPoint("BOTTOMRIGHT", CliqueListScroll, "BOTTOMRIGHT", 14, 0)
     texture:SetGradientAlpha("HORIZONTAL", 0.15, 0.15, 0.15, 0.15, 1, 0.5, 0.25, 0.05, 0)
-    
+
     local update = function() Clique:ListScrollUpdate() end
 
 	CliqueListScroll:SetScript("OnVerticalScroll", update, function(self, offset)
@@ -434,7 +435,7 @@ function Clique:CreateOptionsFrame()
 --          edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
 --          tile = true, tileSize = 8, edgeSize = 16, 
           insets = {left = 2, right = 2, top = 2, bottom = 2}})
-		
+
         entry:SetBackdropBorderColor(0.3, 0.3, 0.3)
         entry:SetBackdropColor(0.1, 0.1, 0.1, 0.3)
         entry:SetScript("OnClick", onclick)
@@ -479,7 +480,7 @@ function Clique:CreateOptionsFrame()
     CreateFrame("ScrollFrame", "CliqueTextListScroll", CliqueTextListFrame, "FauxScrollFrameTemplate")
     CliqueTextListScroll:SetPoint("TOPLEFT", CliqueTextList1, "TOPLEFT", 0, 0)
     CliqueTextListScroll:SetPoint("BOTTOMRIGHT", endButton, "BOTTOMRIGHT", 0, 0)
-    
+
     local texture = CliqueTextListScroll:CreateTexture(nil, "BACKGROUND")
     texture:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
     texture:SetPoint("TOPLEFT", CliqueTextListScroll, "TOPRIGHT", 14, 0)
@@ -491,7 +492,7 @@ function Clique:CreateOptionsFrame()
     texture:SetPoint("TOPLEFT", CliqueTextListScroll, "TOPRIGHT", 4, 0)
     texture:SetPoint("BOTTOMRIGHT", CliqueTextListScroll, "BOTTOMRIGHT", 14, 0)
     texture:SetGradientAlpha("HORIZONTAL", 0.15, 0.15, 0.15, 0.15, 1, 0.5, 0.25, 0.05, 0)
-    
+
     local update = function()
 		Clique:TextListScrollUpdate()
 	end
@@ -528,7 +529,7 @@ function Clique:CreateOptionsFrame()
 	button:SetWidth(25)
 	button:SetPoint("TOPRIGHT", -5, 3)
 	button:SetScript("OnClick", buttonFunc)
-    
+
     local button = CreateFrame("Button", "CliqueButtonCustom", CliqueFrame, "UIPanelButtonGrayTemplate")
     button:SetHeight(24)
     button:SetWidth(60)
@@ -683,7 +684,7 @@ function Clique:CreateOptionsFrame()
 		button.name = button:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 		button.name:SetPoint("LEFT", 25, 0)
 		button.name:SetJustifyH("LEFT")
-		
+
 		local entry = buttons[1]
 		local name = "CliqueRadioButton"..entry.type
 		local button = CreateFrame("CheckButton", name, CliqueCustomFrame)
@@ -705,7 +706,7 @@ function Clique:CreateOptionsFrame()
 		local entry = buttons[i]
 		local name = "CliqueRadioButton"..entry.type
 		local button = getglobal(name)
-	
+
 		button.type = entry.type
 		button.name:SetText(entry.name)
 		button:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, 0)	
@@ -1880,12 +1881,17 @@ function Clique:CreateOptionsWidgets(parent)
 		local priDropdown = CreateFrame("Frame", "CliqueSpecDropDown"..i, parent, "UIDropDownMenuTemplate")
 		priDropdown:Hide()
 		priDropdown:ClearAllPoints()
+		local priDropdown = CreateFrame("Frame", "CliqueSpecDropDown"..i, parent, "UIDropDownMenuTemplate")
+		priDropdown:Hide()
+		priDropdown:ClearAllPoints()
 		if i == 1 then
+			priDropdown:SetPoint("TOPLEFT", switchSpec, "BOTTOMLEFT", 65, 0)
 			priDropdown:SetPoint("TOPLEFT", switchSpec, "BOTTOMLEFT", 65, 0)
 		else
 			priDropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
+			priDropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
 		end
-		
+
 		priDropdown.label = priDropdown:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 		priDropdown.label:SetFormattedText(L["Spec: %d"], i)
 		priDropdown.label:SetPoint("RIGHT", priDropdown, "LEFT", 0, 0)
@@ -1894,16 +1900,15 @@ function Clique:CreateOptionsWidgets(parent)
 		local function initialize(self, level)
 			local function OnClick(self)
 				UIDropDownMenu_SetSelectedID(priDropdown, self:GetID())
+				UIDropDownMenu_SetSelectedID(priDropdown, self:GetID())
 				Clique.db.char["profile_"..i] = self.value
 				Clique:UpdateClicks()
 			end
-
 			local work = {}
 			for k,v in pairs(Clique.db.profiles) do 
 				table.insert(work, k)
 			end
 			table.sort(work) 
-
 			for idx,profile in ipairs(work) do
 				local info = UIDropDownMenu_CreateInfo()
 				info.text = profile
@@ -1917,13 +1922,20 @@ function Clique:CreateOptionsWidgets(parent)
 		UIDropDownMenu_SetWidth(priDropdown, 175);
 		UIDropDownMenu_SetButtonWidth(priDropdown, 199)
 		UIDropDownMenu_JustifyText(priDropdown, "LEFT")
+		UIDropDownMenu_Initialize(priDropdown, initialize)
+		UIDropDownMenu_SetWidth(priDropdown, 175);
+		UIDropDownMenu_SetButtonWidth(priDropdown, 199)
+		UIDropDownMenu_JustifyText(priDropdown, "LEFT")
 
 		if Clique.db.char["profile_"..i] then
 			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.char["profile_"..i])
+			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.char["profile_"..i])
 		else
+			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.keys.profile)
 			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.keys.profile)
 		end
 
+		dropdowns[i] = priDropdown
 		dropdowns[i] = priDropdown
 	end
 
