@@ -1881,14 +1881,9 @@ function Clique:CreateOptionsWidgets(parent)
 		local priDropdown = CreateFrame("Frame", "CliqueSpecDropDown"..i, parent, "UIDropDownMenuTemplate")
 		priDropdown:Hide()
 		priDropdown:ClearAllPoints()
-		local priDropdown = CreateFrame("Frame", "CliqueSpecDropDown"..i, parent, "UIDropDownMenuTemplate")
-		priDropdown:Hide()
-		priDropdown:ClearAllPoints()
 		if i == 1 then
 			priDropdown:SetPoint("TOPLEFT", switchSpec, "BOTTOMLEFT", 65, 0)
-			priDropdown:SetPoint("TOPLEFT", switchSpec, "BOTTOMLEFT", 65, 0)
 		else
-			priDropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
 			priDropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
 		end
 
@@ -1899,7 +1894,6 @@ function Clique:CreateOptionsWidgets(parent)
 
 		local function initialize(self, level)
 			local function OnClick(self)
-				UIDropDownMenu_SetSelectedID(priDropdown, self:GetID())
 				UIDropDownMenu_SetSelectedID(priDropdown, self:GetID())
 				Clique.db.char["profile_"..i] = self.value
 				Clique:UpdateClicks()
@@ -1929,13 +1923,10 @@ function Clique:CreateOptionsWidgets(parent)
 
 		if Clique.db.char["profile_"..i] then
 			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.char["profile_"..i])
-			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.char["profile_"..i])
 		else
-			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.keys.profile)
 			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.keys.profile)
 		end
 
-		dropdowns[i] = priDropdown
 		dropdowns[i] = priDropdown
 	end
 
