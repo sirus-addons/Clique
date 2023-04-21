@@ -158,7 +158,7 @@ function Clique:OptionsOnLoad()
 end
 
 function Clique:LEARNED_SPELL_IN_TAB()
-    local num = GetNumSpellTabs()
+    local num = SpellBookFrame_GetLastNonSpecialTabIndex()
     CliquePulloutTab:ClearAllPoints()
     CliquePulloutTab:SetPoint("TOPLEFT","SpellBookSkillLineTab"..(num),"BOTTOMLEFT",0,-17)
 end
@@ -1877,24 +1877,23 @@ function Clique:CreateOptionsWidgets(parent)
 
 	local dropdowns = {}
 	for i = 1, 10 do
-		local dropdown = CreateFrame("Frame", "CliqueSpecDropDown"..i, parent, "UIDropDownMenuTemplate")
-		dropdown:Hide()
-
-		dropdown:ClearAllPoints()
+		local priDropdown = CreateFrame("Frame", "CliqueSpecDropDown"..i, parent, "UIDropDownMenuTemplate")
+		priDropdown:Hide()
+		priDropdown:ClearAllPoints()
 		if i == 1 then
-			dropdown:SetPoint("TOPLEFT", switchSpec, "BOTTOMLEFT", 65, 0)
+			priDropdown:SetPoint("TOPLEFT", switchSpec, "BOTTOMLEFT", 65, 0)
 		else
-			dropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
+			priDropdown:SetPoint("TOPLEFT", dropdowns[i - 1], "BOTTOMLEFT", 0, 0)
 		end
 		
-		dropdown.label = dropdown:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-		dropdown.label:SetFormattedText(L["Spec: %d"], i)
-		dropdown.label:SetPoint("RIGHT", dropdown, "LEFT", 0, 0)
-		dropdown.label:SetHeight(16)
+		priDropdown.label = priDropdown:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		priDropdown.label:SetFormattedText(L["Spec: %d"], i)
+		priDropdown.label:SetPoint("RIGHT", priDropdown, "LEFT", 0, 0)
+		priDropdown.label:SetHeight(16)
 
 		local function initialize(self, level)
 			local function OnClick(self)
-				UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
+				UIDropDownMenu_SetSelectedID(priDropdown, self:GetID())
 				Clique.db.char["profile_"..i] = self.value
 				Clique:UpdateClicks()
 			end
@@ -1914,18 +1913,18 @@ function Clique:CreateOptionsWidgets(parent)
 			end
 		end
 
-		UIDropDownMenu_Initialize(dropdown, initialize)
-		UIDropDownMenu_SetWidth(dropdown, 175);
-		UIDropDownMenu_SetButtonWidth(dropdown, 199)
-		UIDropDownMenu_JustifyText(dropdown, "LEFT")
+		UIDropDownMenu_Initialize(priDropdown, initialize)
+		UIDropDownMenu_SetWidth(priDropdown, 175);
+		UIDropDownMenu_SetButtonWidth(priDropdown, 199)
+		UIDropDownMenu_JustifyText(priDropdown, "LEFT")
 
 		if Clique.db.char["profile_"..i] then
-			UIDropDownMenu_SetSelectedValue(dropdown, Clique.db.char["profile_"..i])
+			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.char["profile_"..i])
 		else
-			UIDropDownMenu_SetSelectedValue(dropdown, Clique.db.keys.profile)
+			UIDropDownMenu_SetSelectedValue(priDropdown, Clique.db.keys.profile)
 		end
 
-		dropdowns[i] = dropdown
+		dropdowns[i] = priDropdown
 	end
 
     local function refreshOptions(self)
