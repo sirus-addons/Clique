@@ -29,9 +29,7 @@ function Clique:Enable()
 			tooltips = false,
 		},
         char = {
-
             compactraid = true,
-
             switchSpec = false,
             downClick = false,
         },
@@ -176,6 +174,7 @@ function Clique:Toggle_BlizzCompactUnitFrames(toggle)
 			index = index + 1
 			frame = _G["CompactRaidFrame" .. index]
 		end
+
 		index = 1
 		frame = _G["CompactPartyFrameMember" .. index]
 		while frame do
@@ -203,7 +202,6 @@ function Clique:Enable_BlizzCompactUnitFrames()
 	self.compactraidAdded = true
 end
 
-
 function Clique:EnableFrames()
     local tbl = {
 		PlayerFrame,
@@ -224,18 +222,14 @@ function Clique:EnableFrames()
         Boss2TargetFrame,
         Boss3TargetFrame,
         Boss4TargetFrame,
-
     }
 
     for i,frame in pairs(tbl) do
-		if frame then
-			rawset(self.ccframes, frame, true)
-		end
+		rawset(self.ccframes, frame, true)
     end
 
 	self:Enable_BlizzCompactUnitFrames()
-end	   
-
+end
 
 function Clique:SpellBookButtonPressed(frame, button)
     local name, rank, texture = GetSpellInfo(this:GetParent().data or 0)
@@ -799,7 +793,7 @@ function Clique:PLAYER_TALENT_UPDATE()
 
 	local talentGroup = C_Talent.GetActiveTalentGroup()
     if self.db.char.switchSpec and self.talentGroup ~= talentGroup then
-        self:Print(L.TALENTSWITCH)
+        self:Print(L.TALENT_SWITCH)
 		if not self.db.char["profile_"..talentGroup] then
 			self.db.char["profile_"..talentGroup] = self.db.keys.profile
 		end

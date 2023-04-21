@@ -1,9 +1,9 @@
 local L = Clique.Locals
 
 local buttonMap = setmetatable({
-    [1] = L.LEFTBUTT,
-    [2] = L.RIGHTBUTT,
-    [3] = L.MIDDLEBUTT,
+    [1] = L.LEFT_BUTTON,
+    [2] = L.RIGHT_BUTTON,
+    [3] = L.MIDDLE_BUTTON,
 }, {
     __index = function(t, k)
         return L.BUTTON .. k
