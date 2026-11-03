@@ -47,7 +47,7 @@ if GetLocale() == "ruRU" then
 	L.CANNOT_CHANGE_COMBAT    = "Во время боя применить изменения невозможно.  Они будут отложены, пока Вы не выйдете из боя."
 	L.APPLY_QUEUE             = "Бой окончен.  Применяю все запланированные изменения."
 	L.PROFILE_CHANGED         = "Профиль сменен на '%s'."
-	L.PROFILE_DELETED         = "Профить '%s' был удален."
+	L.PROFILE_DELETED         = "Профиль '%s' был удален."
 	L.PROFILE_RESET         = "Ваш профиль '%s' был сброшен."
 
 	L.ACTION_ACTIONBAR = "Сменить панель команд"
@@ -119,7 +119,7 @@ if GetLocale() == "ruRU" then
 
 	L["Spec: %d"] = "Спек: %d"
 	L["Clique Options"] = "Опции"
-	L.DOWNCLICK_LABEL = "Исп. когда кнопка нажата, а не отжатии"
+	L.DOWNCLICK_LABEL = "Исп. когда кнопка нажата, а не при отжатии"
 	L.SPECSWITCH_LABEL = "Менять профиль при смене специализации"
 	L.COMPACT_RAID_FRAMES_LABEL = "Компактные рамки группы"
 

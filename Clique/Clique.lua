@@ -48,13 +48,13 @@ function Clique:Enable()
 		if v == nil then
 			Clique:UnregisterFrame(k)
 			rawset(self.ccframes, k, nil)
-		else
+		elseif self.ccframes[k] ~= v then
 			Clique:RegisterFrame(k)
 			rawset(self.ccframes, k, v)
 		end
     end
 
-	ClickCastFrames = setmetatable({}, {__newindex=newindex})
+	ClickCastFrames = setmetatable({}, {__index=self.ccframes, __newindex=newindex})
 
     Clique:OptionsOnLoad()
     Clique:EnableFrames()
@@ -70,6 +70,12 @@ function Clique:Enable()
 	self:RegisterEvent("LEARNED_SPELL_IN_TAB")
     self:RegisterEvent("PLAYER_TALENT_UPDATE")
     self:RegisterEvent("ADDON_LOADED")
+
+    local talentFrame = CreateFrame("Frame")
+    if talentFrame.RegisterCustomEvent then
+        talentFrame:RegisterCustomEvent("PLAYER_TALENT_UPDATE_EX")
+        talentFrame:SetScript("OnEvent", function() self:PLAYER_TALENT_UPDATE() end)
+    end
 
     -- Change to correct profile based on talent spec
     self.numTalentGroups = C_Talent.GetNumTalentGroups()
@@ -98,17 +104,9 @@ function Clique:Enable()
 		end
 	end
 
-	local oldotsu = GameTooltip:GetScript("OnTooltipSetUnit")
-	if oldotsu then
-		GameTooltip:SetScript("OnTooltipSetUnit", function(...)
-			Clique:AddTooltipLines()
-			return oldotsu(...)
-		end)
-	else
-		GameTooltip:SetScript("OnTooltipSetUnit", function(...)
-			Clique:AddTooltipLines()
-		end)
-	end
+	GameTooltip:HookScript("OnTooltipSetUnit", function()
+		Clique:AddTooltipLines()
+	end)
 
     hooksecurefunc("CreateFrame", raidFunc)
 
@@ -147,6 +145,9 @@ end
 
 local function enableCompactUnitFrames(self, frame)
 	local name = frame:GetName()
+	if not name or frame.disableMouse then
+		return
+	end
 
 	for i = 1, 3 do
 		local buff = _G[name .. "Buff" .. i]
@@ -225,16 +226,21 @@ function Clique:EnableFrames()
     }
 
     for i,frame in pairs(tbl) do
-		rawset(self.ccframes, frame, true)
+		ClickCastFrames[frame] = true
     end
 
 	self:Enable_BlizzCompactUnitFrames()
 end
 
 function Clique:SpellBookButtonPressed(frame, button)
-    local name, rank, texture = GetSpellInfo(this:GetParent().data or 0)
+    local parent = frame:GetParent()
+    if not parent.data or parent.Disabled then
+		return
+    end
 
-    if rank == L.RACIAL_PASSIVE or rank == L.PASSIVE then
+    local name, rank, texture = GetSpellInfo(parent.data)
+
+    if parent.isPassive or rank == L.RACIAL_PASSIVE or rank == L.PASSIVE then
 		StaticPopup_Show("CLIQUE_PASSIVE_SKILL")
 		return
     end
@@ -418,6 +424,10 @@ function Clique:DONGLE_PROFILE_CHANGED(event, db, parent, svname, profileKey)
 		self.editSet = self.clicksets[L.CLICKSET_DEFAULT]
 		self.profileKey = profileKey
 
+		if CliqueFrame then
+			CliqueFrame.title:SetText("Clique v. " .. Clique.version .. " - " .. tostring(profileKey))
+		end
+
 		-- Refresh the profile editor if it exists
 		self.textlistSelected = nil
 		self:TextListScrollUpdate()
@@ -447,7 +457,7 @@ function Clique:DONGLE_PROFILE_RESET(event, db, parent, svname, profileKey)
 		self:UpdateClicks()
 
 		self:PLAYER_REGEN_ENABLED()
-		self:Print(L.PROFILE_RESET, profileKey)
+		self:PrintF(L.PROFILE_RESET, profileKey)
 	end
 end
 
@@ -605,7 +615,10 @@ end
 
 function Clique:ShowAttributes()
 	self:Print("Enabled enhanced debugging.")
-	PlayerFrame:SetScript("OnAttributeChanged", function(...) self:Print(...) end)
+	if not self.attributesHooked then
+		self.attributesHooked = true
+		PlayerFrame:HookScript("OnAttributeChanged", function(...) self:Print(...) end)
+	end
 	self:UnregisterFrame(PlayerFrame)
 	self:RegisterFrame(PlayerFrame)
 end
@@ -798,10 +811,6 @@ function Clique:PLAYER_TALENT_UPDATE()
 			self.db.char["profile_"..talentGroup] = self.db.keys.profile
 		end
 		self.db:SetProfile(self.db.char["profile_"..talentGroup])
-
-        if CliqueFrame then
-            CliqueFrame.title:SetText("Clique v. " .. Clique.version .. " - " .. tostring(Clique.db.keys.profile));
-        end
 		self.talentGroup = talentGroup
     end
 end
@@ -829,7 +838,7 @@ function Clique:EnableArenaFrames()
     }
 
     for idx,frame in ipairs(arenaFrames) do
-        rawset(self.ccframes, frame, true)
+        ClickCastFrames[frame] = true
     end
 end
 

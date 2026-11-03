@@ -31,7 +31,11 @@ function Clique:OptionsOnLoad()
         button:SetScript("OnEnter", function(self)
 			local parent = self:GetParent()
             if parent:IsEnabled() == 1 then
-                SpellButton_OnEnter(parent)
+                local link = parent.data and GetSpellLink(parent.data)
+                GameTooltip:SetOwner(parent, "ANCHOR_RIGHT")
+                if link then
+                    GameTooltip:SetHyperlink(link)
+                end
             else
                 button:GetHighlightTexture():Hide()
             end
@@ -103,16 +107,17 @@ function Clique:OptionsOnLoad()
 	-- Hook the container buttons
 	local containerFunc = function(button)
 		if IsShiftKeyDown() and CliqueCustomArg1 then
+			local bag = button.GetBagID and button:GetBagID() or button:GetParent():GetID()
 			if CliqueCustomArg1:HasFocus() then
-				CliqueCustomArg1:Insert(GetContainerItemLink(button:GetParent():GetID(), button:GetID()))
+				CliqueCustomArg1:Insert(GetContainerItemLink(bag, button:GetID()))
 			elseif CliqueCustomArg2:HasFocus() then
-				CliqueCustomArg2:Insert(GetContainerItemLink(button:GetParent():GetID(), button:GetID()))
+				CliqueCustomArg2:Insert(GetContainerItemLink(bag, button:GetID()))
 			elseif CliqueCustomArg3:HasFocus() then
-				CliqueCustomArg3:Insert(GetContainerItemLink(button:GetParent():GetID(), button:GetID()))
+				CliqueCustomArg3:Insert(GetContainerItemLink(bag, button:GetID()))
 			elseif CliqueCustomArg4:HasFocus() then
-				CliqueCustomArg4:Insert(GetContainerItemLink(button:GetParent():GetID(), button:GetID()))
+				CliqueCustomArg4:Insert(GetContainerItemLink(bag, button:GetID()))
 			elseif CliqueCustomArg5:HasFocus() then
-				CliqueCustomArg5:Insert(GetContainerItemLink(button:GetParent():GetID(), button:GetID()))
+				CliqueCustomArg5:Insert(GetContainerItemLink(bag, button:GetID()))
 			end
 		end
 	end
@@ -1092,7 +1097,7 @@ function Clique:ValidateButtons()
 end
 
 function Clique:FillListEntry(frame, idx)
-    local entry = self.sortList[idx]
+    local entry, rank = self.sortList[idx]
 	if tonumber(entry.arg2) then
 		rank = string.format("Rank %d", entry.arg2)
 	elseif entry.arg2 then
@@ -1421,11 +1426,11 @@ function Clique:CustomBinding_OnClick(frame)
 
 	local localizedButtonName
 	if arg1 == "LeftButton" then
-		localizedButtonName = L.LEFTBUTT
+		localizedButtonName = L.LEFT_BUTTON
 	elseif arg1 == "RightButton" then
-		localizedButtonName = L.RIGHTBUTT
+		localizedButtonName = L.RIGHT_BUTTON
 	elseif arg1 == "MiddleButton" then
-		localizedButtonName = L.MIDDLEBUTT
+		localizedButtonName = L.MIDDLE_BUTTON
 	elseif arg1 == "Button5" then
 		localizedButtonName = L.BUTTON5
 	elseif arg1 == "Button4" then
